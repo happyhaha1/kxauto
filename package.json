@@ -1,7 +1,7 @@
 {
-  "name": "ee",
+  "name": "kxauto",
   "version": "4.0.0",
-  "description": "A fast, desktop software development framework",
+  "description": "自动化框架以及工具",
   "main": "./public/electron/main.js",
   "scripts": {
     "dev": "ee-bin dev",
@@ -20,13 +20,9 @@
     "build-m-arm64": "ee-bin build --cmds=mac_arm64",
     "build-l": "ee-bin build --cmds=linux"
   },
-  "repository": "https://github.com/dromara/electron-egg.git",
-  "keywords": [
-    "Electron",
-    "electron-egg",
-    "ElectronEgg"
-  ],
-  "author": "哆啦好梦, Inc <530353222@qq.com>",
+  "repository": "https://github.com/happyhaha1/kxauto.git",
+  "keywords": [],
+  "author": "happyhaha1",
   "license": "Apache",
   "devDependencies": {
     "@electron/rebuild": "^3.7.1",
@@ -34,7 +30,8 @@
     "debug": "^4.4.0",
     "ee-bin": "^4.1.1",
     "electron": "^31.7.6",
-    "electron-builder": "^25.1.8"
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "ee-core": "^4.0.0",

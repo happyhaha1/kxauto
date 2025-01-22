@@ -1,28 +1,22 @@
-'use strict';
+import path from 'path';
+import { getBaseDir } from 'ee-core/ps';
+import { type AppConfig } from 'ee-core/config';
 
-const path = require('path');
-const { getBaseDir } = require('ee-core/ps');
-
-/**
- * 默认配置
- */
-module.exports = () => {
+const config: () => AppConfig = () => {
   return {
     openDevTools: false,
     singleLock: true,
     windowsOption: {
-      title: 'electron-egg',
+      title: '瑞安市公安局自动化工具',
       width: 980,
       height: 650,
       minWidth: 400,
       minHeight: 300,
       webPreferences: {
-        //webSecurity: false,
-        contextIsolation: false, // false -> 可在渲染进程中使用electron的api，true->需要bridge.js(contextBridge)
+        contextIsolation: false,
         nodeIntegration: true,
-        //preload: path.join(getElectronDir(), 'preload', 'bridge.js'),
       },
-      frame: true,
+      frame: false,
       show: true,
       icon: path.join(getBaseDir(), 'public', 'images', 'logo-32.png'),
     },
@@ -31,14 +25,14 @@ module.exports = () => {
       outputJSON: false,
       appLogName: 'ee.log',
       coreLogName: 'ee-core.log',
-      errorLogName: 'ee-error.log' 
+      errorLogName: 'ee-error.log',
     },
     remote: {
       enable: false,
-      url: 'http://electron-egg.kaka996.com/'
+      url: 'http://electron-egg.kaka996.com/',
     },
     socketServer: {
-      enable: false,
+      enable: true,
       port: 7070,
       path: "/socket.io/",
       connectTimeout: 45000,
@@ -49,21 +43,22 @@ module.exports = () => {
       cors: {
         origin: true,
       },
-      channel: 'socket-channel'
+      channel: 'socket-channel',
     },
     httpServer: {
-      enable: false,
+      enable: true,
       https: {
-        enable: false, 
+        enable: false,
         key: '/public/ssl/localhost+1.key',
-        cert: '/public/ssl/localhost+1.pem'
+        cert: '/public/ssl/localhost+1.pem',
       },
       host: '127.0.0.1',
       port: 7071,
     },
     mainServer: {
       indexPath: '/public/dist/index.html',
-      channelSeparator: '/',
     }
-  }
-}
+  };
+};
+
+export default config;
