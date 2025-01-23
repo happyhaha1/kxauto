@@ -31,6 +31,7 @@
     "ee-bin": "^4.1.1",
     "electron": "^31.7.6",
     "electron-builder": "^25.1.8",
+    "electron-fix": "^1.1.4",
     "typescript": "^5.7.3"
   },
   "dependencies": {
