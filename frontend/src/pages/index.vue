@@ -1,46 +1,26 @@
-<script setup lang="ts" generic="T extends any, O extends any">
-defineOptions({
-  name: 'IndexPage',
-})
+<script setup lang="ts">
 
-const name = ref('')
-
-const router = useRouter()
-function go() {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
-}
 </script>
 
 <template>
-  <div>
-    <div i-carbon-campsite inline-block text-4xl />
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu-collective/vitesse-lite" target="_blank">
-        Vitesse Lite
-      </a>
-    </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
-    </p>
-
-    <div py-4 />
-
-    <TheInput
-      v-model="name"
-      placeholder="What's your name?"
-      autocomplete="false"
-      @keydown.enter="go"
-    />
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        Go
-      </button>
-    </div>
-  </div>
+  <n-layout position="absolute">
+    <n-layout-header style="height: 64px; padding: 24px" bordered>
+      瑞安市公安局科技信息化大队
+    </n-layout-header>
+    <n-layout has-sider position="absolute" style="top: 64px; bottom: 64px">
+      <n-layout-sider bordered content-style="padding: 24px;">
+        黄金取现研判工具
+      </n-layout-sider>
+      <n-layout content-style="padding: 24px;">
+        <xzfz-the-main />
+      </n-layout>
+    </n-layout>
+    <n-layout-footer
+      bordered
+      position="absolute"
+      style="height: 64px; padding: 24px"
+    >
+      Power By 郑开心
+    </n-layout-footer>
+  </n-layout>
 </template>

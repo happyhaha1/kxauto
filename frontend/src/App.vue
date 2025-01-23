@@ -1,6 +1,18 @@
+<script setup lang="ts">
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+</script>
+
 <template>
-  <main font-sans p="x-4 y-10" text="center gray-700 dark:gray-200">
-    <RouterView />
-    <TheFooter />
-  </main>
+  <n-config-provider
+    preflight-style-disabled
+    class="h-full"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+    :theme="isDark ? darkTheme : null"
+  >
+    <n-global-style />
+    <GlobalProvider>
+      <RouterView />
+    </GlobalProvider>
+  </n-config-provider>
 </template>
