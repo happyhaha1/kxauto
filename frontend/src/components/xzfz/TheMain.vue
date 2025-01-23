@@ -1,12 +1,39 @@
 <script setup lang="ts">
+import type { FormInst, FormRules } from 'naive-ui'
 import { ipcApiRoute } from '~/api'
 
 const currentStep = ref(1)
-const data_dir = ref('')
+const formValue = ref({
+  dataDir: '',
+})
+const formRef: ref<FormInst | null> = ref(null)
+const rules: FormRules = {
+  dataDir: {
+    required: true,
+    message: '请选择文件',
+    trigger: ['input', 'blur'],
+  },
+}
 function selectDir() {
   ipc.invoke(ipcApiRoute.os.selectFile, '').then((res: any) => {
-    data_dir.value = res
+    formValue.value.dataDir = res
   })
+}
+
+function next() {
+  if (currentStep.value === 3) {
+    formRef.value?.validate((errors: Error[]) => {
+      if (!errors) {
+        ipc.send(ipcApiRoute.xzfz.parseXlsx, formValue.value.dataDir)
+      }
+      else {
+        $message.error('请选择文件')
+      }
+    })
+  }
+  else {
+    currentStep.value++
+  }
 }
 </script>
 
@@ -39,8 +66,8 @@ function selectDir() {
         <n-button type="success" :disabled="currentStep === 1" @click="currentStep--">
           上一步
         </n-button>
-        <n-button :disabled="currentStep === 4" @click="currentStep++">
-          下一步
+        <n-button :disabled="currentStep === 4" @click="next">
+          {{ currentStep === 3 ? '开始执行' : currentStep === 4 ? '完成' : '下一步' }}
         </n-button>
       </n-space>
     </n-flex>
@@ -51,14 +78,21 @@ function selectDir() {
         打开浏览器
       </n-button>
     </n-flex>
-    <n-flex v-if="currentStep === 2">
-      <n-input-group>
-        <n-input-group-label>研判文件</n-input-group-label>
-        <n-input :value="data_dir" disabled />
-        <n-button type="primary" ghost @click="selectDir">
-          选择文件
-        </n-button>
-      </n-input-group>
+    <n-flex v-if="currentStep >= 2">
+      <n-form
+        ref="formRef" inline :model="formValue"
+        :rules="rules"
+      >
+        <n-form-item path="dataDir">
+          <n-input-group>
+            <n-input-group-label>研判文件</n-input-group-label>
+            <n-input v-model:value="formValue.dataDir" disabled />
+            <n-button type="primary" ghost @click="selectDir">
+              选择文件
+            </n-button>
+          </n-input-group>
+        </n-form-item>
+      </n-form>
     </n-flex>
   </n-card>
 </template>

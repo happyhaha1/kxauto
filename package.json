@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "ee-core": "^4.0.0",
-    "electron-updater": "^6.3.8"
+    "electron-updater": "^6.3.8",
+    "node-xlsx": "^0.24.0"
   }
 }
